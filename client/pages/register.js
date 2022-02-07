@@ -48,7 +48,6 @@ const Register = () => {
           password: formData.password,
         })
       )
-      console.log(formData)
     } else {
       console.log("error")
     }
