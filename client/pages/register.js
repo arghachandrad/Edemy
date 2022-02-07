@@ -9,10 +9,11 @@ import Banner from "../components/Banner"
 import { useDispatch, useSelector } from "react-redux"
 import { authSelector } from "../redux/auth/selector"
 import { register } from "../redux/auth/actions"
+import LoadingButton from "@mui/lab/LoadingButton"
 
 const Register = () => {
   const dispatch = useDispatch()
-  const auth = useSelector(authSelector)
+  const { user, pending, error } = useSelector(authSelector)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -125,9 +126,14 @@ const Register = () => {
               />
             </Grid>
             <Grid item>
-              <Button type="submit" variant="contained" size="large">
+              <LoadingButton
+                loading={pending}
+                type="submit"
+                variant="contained"
+                size="large"
+              >
                 Register
-              </Button>
+              </LoadingButton>
             </Grid>
           </Grid>
         </form>
