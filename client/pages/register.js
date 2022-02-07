@@ -6,8 +6,13 @@ import Button from "@mui/material/Button"
 import { useState } from "react"
 import validationUtility from "../utils/validationUtility"
 import Banner from "../components/Banner"
+import { useDispatch, useSelector } from "react-redux"
+import { authSelector } from "../redux/auth/selector"
+import { register } from "../redux/auth/actions"
 
 const Register = () => {
+  const dispatch = useDispatch()
+  const auth = useSelector(authSelector)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,6 +41,13 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, validation: true }))
     const validationResponse = await formValidation()
     if (validationResponse) {
+      dispatch(
+        register({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        })
+      )
       console.log(formData)
     } else {
       console.log("error")
