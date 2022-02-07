@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit"
 import { register } from "./actions"
+import { toast } from "react-toastify"
 
 const initialState = {
   user: null,
@@ -14,11 +15,10 @@ export const authReducer = createReducer(initialState, (builder) => {
     })
     .addCase(register.fulfilled, (state, action) => {
       state.pending = false
-      console.log("register data: ", action)
-      state.data = payload
+      toast.success(action.payload.message)
     })
     .addCase(register.rejected, (state, action) => {
-      console.log("action: ", action)
+      toast.error(action.payload.message)
       state.pending = false
       state.error = true
     })
