@@ -11,6 +11,7 @@ import { authSelector } from "../redux/auth/selector"
 import { register } from "../redux/auth/actions"
 import LoadingButton from "@mui/lab/LoadingButton"
 import { toast } from "react-toastify"
+import Link from "next/link"
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -154,6 +155,14 @@ const Register = () => {
               >
                 Register
               </LoadingButton>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography sx={{ display: "inline" }} variant="body2">
+                Already registered ?
+              </Typography>
+              <Link href="/login">
+                <a>Login</a>
+              </Link>
             </Grid>
           </Grid>
         </form>
