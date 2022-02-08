@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { authSelector } from "../redux/auth/selector"
 import { register } from "../redux/auth/actions"
 import LoadingButton from "@mui/lab/LoadingButton"
+import { toast } from "react-toastify"
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -42,15 +43,30 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, validation: true }))
     const validationResponse = await formValidation()
     if (validationResponse) {
-      dispatch(
-        register({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        })
-      )
+      try {
+        const originalPromiseResult = await dispatch(
+          register({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          })
+        ).unwrap()
+        toast.success(originalPromiseResult.message)
+        // clear fields and clear validation msg
+        setFormData((prev) => ({
+          ...prev,
+          validation: false,
+          name: "",
+          email: "",
+          password: "",
+        }))
+      } catch (rejectedValueOrSerializedError) {
+        toast.error(rejectedValueOrSerializedError.message)
+        // donot clear fields but clear validation msg
+        setFormData((prev) => ({ ...prev, validation: false }))
+      }
     } else {
-      console.log("error")
+      toast.error("Please enter all the required fields")
     }
   }
 
@@ -66,6 +82,7 @@ const Register = () => {
                 type="text"
                 variant="outlined"
                 name="name"
+                value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter name"
                 fullWidth
@@ -90,6 +107,7 @@ const Register = () => {
                 onChange={handleChange}
                 placeholder="Enter email"
                 fullWidth
+                value={formData.email}
                 error={
                   formData.validation
                     ? !validationUtility.email(formData.email)
@@ -112,6 +130,7 @@ const Register = () => {
                 onChange={handleChange}
                 placeholder="Enter password"
                 fullWidth
+                value={formData.password}
                 error={
                   formData.validation
                     ? !validationUtility.text(formData.password)

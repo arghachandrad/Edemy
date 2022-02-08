@@ -15,10 +15,8 @@ export const authReducer = createReducer(initialState, (builder) => {
     })
     .addCase(register.fulfilled, (state, action) => {
       state.pending = false
-      toast.success(action.payload.message)
     })
     .addCase(register.rejected, (state, action) => {
-      toast.error(action.payload.message)
       state.pending = false
       state.error = true
     })
