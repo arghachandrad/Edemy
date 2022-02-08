@@ -144,12 +144,13 @@ const Register = () => {
                 }
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <LoadingButton
                 loading={pending}
                 type="submit"
                 variant="contained"
                 size="large"
+                fullWidth
               >
                 Register
               </LoadingButton>

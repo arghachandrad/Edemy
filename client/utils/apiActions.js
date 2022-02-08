@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const CallWithOutAuth = async (method, apiUrl, body) => {
-  let url = process.env.NEXT_PUBLIC_BASE_URL + apiUrl
+  let url = "/api/v1" + apiUrl
   if (method === "POST") {
     const response = await axios.post(url, body)
     return Promise.resolve(response)
@@ -60,7 +60,7 @@ export const CallWithAuth = async (method, apiUrl, body) => {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   }
 
-  let url = process.env.BASE_URL + apiUrl
+  let url = "/api/v1" + apiUrl
 
   if (method === "POST") {
     try {
