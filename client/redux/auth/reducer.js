@@ -1,6 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { register } from "./actions"
-import { toast } from "react-toastify"
+import { login, logout, register } from "./actions"
 
 const initialState = {
   user: null,
@@ -19,6 +18,20 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase(register.rejected, (state, action) => {
       state.pending = false
       state.error = true
+    })
+    .addCase(login.pending, (state) => {
+      state.pending = true
+    })
+    .addCase(login.fulfilled, (state, action) => {
+      state.user = action.payload.data
+      state.pending = false
+    })
+    .addCase(login.rejected, (state, action) => {
+      state.pending = false
+      state.error = true
+    })
+    .addCase(logout, (state) => {
+      state.user = null
     })
 })
 

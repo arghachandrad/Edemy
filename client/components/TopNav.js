@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
 import MenuItem from "@mui/material/MenuItem"
-import Link from "next/link"
 import { useRouter } from "next/router"
 
 const pages = ["Login", "Register"]
@@ -113,7 +112,14 @@ const TopNav = () => {
               <Button
                 key={page}
                 onClick={() => handleRedirect(page)}
-                sx={{ my: 2, color: "#111", display: "block" }}
+                sx={{
+                  my: 2,
+                  display: "block",
+                  color:
+                    router.pathname === `/${page.toLowerCase()}`
+                      ? "primary"
+                      : "#111",
+                }}
               >
                 {page}
               </Button>
