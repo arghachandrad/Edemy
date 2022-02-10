@@ -157,12 +157,20 @@ const TopNav = () => {
           {user && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://images.unsplash.com/photo-1644347517589-6f6ba8b9b4b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-                  />
-                </IconButton>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  p={1}
+                >
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="https://images.unsplash.com/photo-1644347517589-6f6ba8b9b4b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                    />
+                  </IconButton>
+                  <Typography variant="body2">{user && user.name}</Typography>
+                </Box>
               </Tooltip>
               <Menu
                 sx={{ mt: "45px" }}

@@ -147,4 +147,21 @@ const Login = () => {
   )
 }
 
+export const getServerSideProps = async function ({ req, res }) {
+  const { token } = req.cookies
+
+  if (token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
+}
+
 export default Login

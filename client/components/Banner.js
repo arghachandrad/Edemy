@@ -12,7 +12,7 @@ const Banner = ({ text }) => {
         justifyContent: "center",
         alignItems: "center",
         boxShadow: 2,
-        bgcolor: "primary.main",
+        background: "linear-gradient(to right, #26a69a, #2979ff)",
       }}
     >
       <Typography variant="h4" color="#fff">
