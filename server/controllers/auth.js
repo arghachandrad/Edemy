@@ -86,3 +86,20 @@ export const login = async (req, res) => {
     })
   }
 }
+
+export const logout = async (req, res) => {
+  try {
+    // clearly httpOnly cookie, so that for any further request cookie will be not there in response header
+    res.clearCookie("token")
+    return res.status(200).json({
+      success: true,
+      message: "Signed out successfully",
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      success: false,
+      message: "Failed to logout. Try Again!",
+    })
+  }
+}

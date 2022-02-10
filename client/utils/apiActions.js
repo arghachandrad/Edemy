@@ -5,52 +5,22 @@ export const CallWithOutAuth = async (method, apiUrl, body) => {
   if (method === "POST") {
     const response = await axios.post(url, body)
     return Promise.resolve(response)
-    // try {
-    //   const response = await axios.post(url, body)
-    //   if (response.status === 200 || response.status === 201) {
-    //     return Promise.resolve({ status: true, res: response })
-    //   } else {
-    //     return Promise.resolve({ status: false, res: response })
-    //   }
-    // } catch (error) {
-    //   return Promise.resolve({ status: false, res: error })
-    // }
   }
   if (method === "PUT") {
-    try {
-      const response = await axios.put(url, body)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.put(url, body)
+    return Promise.resolve(response)
   }
   if (method === "PATCH") {
-    try {
-      const response = await axios.patch(url, body)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.patch(url, body)
+    return Promise.resolve(response)
   }
   if (method === "GET") {
-    try {
-      const response = await axios.get(url)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.get(url)
+    return Promise.resolve(response)
+  }
+  if (method === "DELETE") {
+    const response = await axios.delete(url)
+    return Promise.resolve(response)
   }
 }
 
@@ -60,66 +30,26 @@ export const CallWithAuth = async (method, apiUrl, body) => {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   }
 
-  let url = "/api/v1" + apiUrl
+  let url = "/api/v1" + apiUrl // no base_url required because using custom server nextjs we are using same origin
 
   if (method === "POST") {
-    try {
-      const response = await axios.post(url, body, header)
-      if (response.status === 200 || response.status === 201) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.post(url, body, header)
+    return Promise.resolve(response)
   }
   if (method === "PUT") {
-    try {
-      const response = await axios.put(url, body, header)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.put(url, body, header)
+    return Promise.resolve(response)
   }
   if (method === "PATCH") {
-    try {
-      const response = await axios.patch(url, body, header)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.patch(url, body, header)
+    return Promise.resolve(response)
   }
   if (method === "DELETE") {
-    try {
-      const response = await axios.delete(url, header)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.delete(url, header)
+    return Promise.resolve(response)
   }
   if (method === "GET") {
-    try {
-      const response = await axios.get(url, header)
-      if (response.status === 200) {
-        return Promise.resolve({ status: true, res: response })
-      } else {
-        return Promise.resolve({ status: false, res: response })
-      }
-    } catch (error) {
-      return Promise.resolve({ status: false, res: error })
-    }
+    const response = await axios.get(url, header)
+    return Promise.resolve(response)
   }
 }

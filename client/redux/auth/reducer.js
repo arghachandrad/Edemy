@@ -30,9 +30,20 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.pending = false
       state.error = true
     })
-    .addCase(logout, (state) => {
-      state.user = null
+    .addCase(logout.pending, (state) => {
+      state.pending = true
     })
+    .addCase(logout.fulfilled, (state, action) => {
+      state.user = null
+      state.pending = false
+    })
+    .addCase(logout.rejected, (state, action) => {
+      state.pending = false
+      state.error = true
+    })
+  // .addCase(logout, (state) => {
+  //   state.user = null
+  // })
 })
 
 export default authReducer

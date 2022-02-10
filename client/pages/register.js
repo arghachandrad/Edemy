@@ -12,8 +12,10 @@ import { register } from "../redux/auth/actions"
 import LoadingButton from "@mui/lab/LoadingButton"
 import { toast } from "react-toastify"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 const Register = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const { user, pending, error } = useSelector(authSelector)
   const [formData, setFormData] = useState({
@@ -45,14 +47,14 @@ const Register = () => {
     const validationResponse = await formValidation()
     if (validationResponse) {
       try {
-        const originalPromiseResult = await dispatch(
+        const response = await dispatch(
           register({
             name: formData.name,
             email: formData.email,
             password: formData.password,
           })
         ).unwrap()
-        toast.success(originalPromiseResult.message)
+        toast.success(response.message)
         // clear fields and clear validation msg
         setFormData((prev) => ({
           ...prev,
@@ -61,8 +63,9 @@ const Register = () => {
           email: "",
           password: "",
         }))
-      } catch (rejectedValueOrSerializedError) {
-        toast.error(rejectedValueOrSerializedError.message)
+        router.push("/login")
+      } catch (error) {
+        toast.error(error.message)
         // donot clear fields but clear validation msg
         setFormData((prev) => ({ ...prev, validation: false }))
       }

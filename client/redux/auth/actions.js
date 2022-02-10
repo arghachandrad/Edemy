@@ -25,4 +25,16 @@ export const login = createAsyncThunk(
   }
 )
 
-export const logout = createAction("auth/logout")
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await CallWithOutAuth("GET", "/logout", {})
+      return response.data
+    } catch (err) {
+      return rejectWithValue(err.response.data)
+    }
+  }
+)
+
+// export const logout = createAction("auth/logout")

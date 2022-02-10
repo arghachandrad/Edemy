@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import TextField from "@mui/material/TextField"
-import Button from "@mui/material/Button"
+import { useRouter } from "next/router"
 import { useState } from "react"
 import validationUtility from "../utils/validationUtility"
 import Banner from "../components/Banner"
@@ -14,6 +14,7 @@ import { toast } from "react-toastify"
 import Link from "next/link"
 
 const Login = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const { user, pending, error } = useSelector(authSelector)
   const [formData, setFormData] = useState({
@@ -43,24 +44,23 @@ const Login = () => {
     const validationResponse = await formValidation()
     if (validationResponse) {
       try {
-        const originalPromiseResult = await dispatch(
+        const response = await dispatch(
           login({
             email: formData.email,
             password: formData.password,
           })
         ).unwrap()
-        console.log("Login Response: ", originalPromiseResult)
-        // toast.success(originalPromiseResult.message)
-        // // clear fields and clear validation msg
-        // setFormData((prev) => ({
-        //   ...prev,
-        //   validation: false,
-        //   email: "",
-        //   password: "",
-        // }))
-      } catch (rejectedValueOrSerializedError) {
-        console.log(rejectedValueOrSerializedError)
-        toast.error(rejectedValueOrSerializedError.message)
+        toast.success(response.message)
+        // clear fields and clear validation msg
+        setFormData((prev) => ({
+          ...prev,
+          validation: false,
+          email: "",
+          password: "",
+        }))
+        router.push("/")
+      } catch (error) {
+        toast.error(error.message)
         // donot clear fields but clear validation msg
         setFormData((prev) => ({ ...prev, validation: false }))
       }
