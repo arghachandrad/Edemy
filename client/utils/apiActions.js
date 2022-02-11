@@ -1,4 +1,4 @@
-import axios from "./customAxios"
+import axios from "axios"
 
 export const CallWithOutAuth = async (method, apiUrl, body) => {
   let url = "/api/v1" + apiUrl

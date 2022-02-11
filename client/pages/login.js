@@ -3,12 +3,12 @@ import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 import TextField from "@mui/material/TextField"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import validationUtility from "../utils/validationUtility"
 import Banner from "../components/Banner"
 import { useDispatch, useSelector } from "react-redux"
 import { authSelector } from "../redux/auth/selector"
-import { login, logout } from "../redux/auth/actions"
+import { login } from "../redux/auth/actions"
 import LoadingButton from "@mui/lab/LoadingButton"
 import { toast } from "react-toastify"
 import Link from "next/link"
@@ -22,19 +22,6 @@ const Login = () => {
     password: "",
     validation: false,
   })
-
-  const handleUserLogout = async () => {
-    try {
-      const response = await dispatch(logout()).unwrap()
-    } catch (error) {
-      toast.error(error.message)
-    }
-  }
-
-  useEffect(() => {
-    // logout used for when unauthorized
-    handleUserLogout()
-  }, [])
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
